@@ -59,13 +59,6 @@ export default function Login({ changeStatus }) {
           secureTextEntry
           right={<TextInput.Icon icon="eye" />}
         /> <hr />
-
-        <Button
-          onPress={() => this.props.navigation.navigate('TelaPrincipal')}
-          title="Entrar"
-          color="#1f2e2e"
-        />
-
       </SafeAreaView>
 
 

@@ -1,7 +1,11 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+//biblioteca do firebase
+import firebase from 'firebase/compat/app';
+//autenticação de email e senha
+import 'firebase/compat/auth';
+//trabalha com o banco de dados criado no firebase
+import 'firebase/compat/database';
 
-const firebaseConfig = {
+let firebaseConfig = {
   apiKey: "AIzaSyAaQv_gbbyhivQV_O00IQzbBRLt6DygB2s",
   authDomain: "applojacoffe.firebaseapp.com",
   projectId: "applojacoffe",
@@ -11,6 +15,11 @@ const firebaseConfig = {
   measurementId: "G-FG12DNRQMT"
 };
 
+if (!firebase.apps.length) {
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+}
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+
+export default firebase;
