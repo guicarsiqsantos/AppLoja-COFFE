@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Produtos from '../Produtos/gerenciarprodutos';
+//import Produtos from '../Produtos/gerenciarprodutos';
 
 
 
@@ -68,8 +68,8 @@ export default function App() {
                             case 'Listar':
                                 iconName = 'list';
                                 break;
-                            case 'Bicicletas':
-                                iconName = 'biking';
+                            case 'Coffe':
+                                iconName = 'coffee';
                                 break;
                             case 'Ler API':
                                 iconName = 'bell';
@@ -92,9 +92,7 @@ export default function App() {
             >
                 <Tab.Screen name="Home" component={HomeScreen} />
                 <Tab.Screen name="Listar" component={ListScreen} />
-                <Tab.Screen
-                    name="Bicicletas"
-                    component={PostScreen}
+                <Tab.Screen name="Coffe" component={PostScreen}
                 />
                 <Tab.Screen name="Ler API" component={NotificationsScreen} />
             </Tab.Navigator>
