@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-//import Produtos from '../Produtos/gerenciarprodutos';
+//import Produtos from '../Produtos/gerenciamentoprodutos';
 
 
 
