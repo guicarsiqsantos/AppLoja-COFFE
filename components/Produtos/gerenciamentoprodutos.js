@@ -20,7 +20,7 @@ export default function gerenciamentoprodutos() {
         <View style={styles.container}>
 
             <TextInput
-                placeholder='Carro'
+                placeholder='Produto'
                 left={<TextInput.Icon icon="car" />}
                 maxLength={40}
                 style={styles.input}
