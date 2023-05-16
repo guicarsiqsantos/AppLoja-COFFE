@@ -3,12 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-//import Produtos from '../Produtos/gerenciamentoprodutos';
-
-
-
-//import LinearGradient from 'react-native-linear-gradient';
-
+import Gerenciamentoprodutos from '../Produtos/gerenciamentoprodutos';
 
 
 function HomeScreen() {
@@ -31,8 +26,8 @@ function ListScreen() {
 
 
 
-function PostScreen() {
-    return <Produtos />
+function ProdutoScreen() {
+    return <Gerenciamentoprodutos />
 }
 
 
@@ -92,7 +87,7 @@ export default function App() {
             >
                 <Tab.Screen name="Home" component={HomeScreen} />
                 <Tab.Screen name="Listar" component={ListScreen} />
-                <Tab.Screen name="Coffe" component={PostScreen}
+                <Tab.Screen name="Coffe" component={ProdutoScreen}
                 />
                 <Tab.Screen name="Ler API" component={NotificationsScreen} />
             </Tab.Navigator>
