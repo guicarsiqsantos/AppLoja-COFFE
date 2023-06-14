@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-
-    View, Text, StyleSheet, Button,
-    TouchableOpacity, Keyboard, FlatList, ActivityIndicator
+    Alert, View, Text, StyleSheet, Button,
+    TouchableOpacity, Keyboard, FlatList, ActivityIndicator, ActionSheetIOS
 } from 'react-native';
 
 import { TextInput } from 'react-native-paper';
 import firebase from '../../services/connectionFirebase'
+import Listagem from './listagem';
+
 
 export default function gerenciamentoprodutos() {
 
@@ -15,6 +16,41 @@ export default function gerenciamentoprodutos() {
     const [preco, setPreco] = useState('');
     const [cor, setCor] = useState('');
     const [key, setKey] = useState('');
+    const [action, setAction] = useState('new')
+
+    const [produtos, setProdutos] = useState([]); 
+    const [loading, setLoading] = useState(true);
+    const inputRef = useRef(null);
+
+
+    useEffect(() => {
+
+        async function search() {
+
+            await firebase.database().ref('produtos').on('value', (snapshot) => {
+
+                snapshot.forEach((chilItem) => {
+
+                    let data = {
+                        //de acordo com a chave de cada item busca os valores 
+                        //cadastrados na relação e atribui nos dados 
+                        key: chilItem.key,
+                        nome: chilItem.val().nome,
+                        marca: chilItem.val().marca,
+                        preco: chilItem.val().preco,
+                        cor: chilItem.val().cor,
+                    };
+                    // setProdutos(oldArray => [...oldArray, data].reverse());
+                    setProdutos([data])
+                })
+                setLoading(false);
+            })
+        }
+        search();
+    }, []);
+
+
+
 
     //implementação dos métodos update ou insert 
     async function insertUpdate() {
@@ -26,14 +62,13 @@ export default function gerenciamentoprodutos() {
             })
 
             Keyboard.dismiss();
-            alert('Produto Editado!');
+            Alert.alert("Atualização",'Produto Atualizado!');
             clearFields();
             setKey('');
             return;
         }
 
         //cadastrar dados 
-
         let produtos = await firebase.database().ref('produtos');
 
         let chave = produtos.push().key; //comando para salvar é o push 
@@ -57,6 +92,30 @@ export default function gerenciamentoprodutos() {
         setMarca('');
         setPreco('');
         setCor('');
+        setAction("new")
+    }
+
+    //função para excluir um item  
+    function handleDelete(key) {
+
+
+        firebase.database().ref('produtos').child(key).remove()
+            .then(() => {
+                //todos os itens que forem diferentes daquele que foi deletado 
+                //serão atribuidos no array 
+                const findProdutos = produtos.filter(item => item.key !== key)
+                setProdutos(findProdutos)
+            })
+    }
+
+    //função para editar  
+    function handleEdit(data) {
+            setKey(data.key),
+            setNome(data.nome),
+            setMarca(data.marca),
+            setPreco(data.preco),
+            setCor(data.cor)
+            setAction("edit")
     }
 
     return (
@@ -70,6 +129,7 @@ export default function gerenciamentoprodutos() {
                 style={styles.input}
                 onChangeText={(text) => setNome(text)}
                 value={nome}
+                ref={inputRef}
             />
 
             <TextInput
@@ -78,6 +138,7 @@ export default function gerenciamentoprodutos() {
                 style={styles.input}
                 onChangeText={(text) => setMarca(text)}
                 value={marca}
+                ref={inputRef}
             />
 
             <TextInput
@@ -86,23 +147,48 @@ export default function gerenciamentoprodutos() {
                 style={styles.input}
                 onChangeText={(text) => setPreco(text)}
                 value={preco}
+                ref={inputRef}
             />
 
             <TextInput
                 placeholder='Cor'
-                left={<TextInput.Icon icon="color" />}
+                left={<TextInput.Icon icon="opacity" />}
                 style={styles.input}
                 onChangeText={(text) => setCor(text)}
                 value={cor}
+                ref={inputRef}
             />
 
             <View style={styles.button}>
                 <Button
                     onPress={insertUpdate}
-                    title="Adicionar"
+                    title={action === "new" ? "Adicionar" : "Atualizar"}
                     color="#3ea6f2"
                 />
             </View>
+
+            <View>
+                <Text style={styles.listar}>Listagem de Produtos</Text>
+            </View>
+
+            {loading ?
+                (
+                    <ActivityIndicator color="#121212" size={45} />
+                ) :
+
+                (
+                    
+                    <FlatList
+                        keyExtractor={item => item.key}
+                        data={produtos}
+                        renderItem={({ item }) => (
+                            <Listagem data={item} deleteItem={handleDelete} editItem={handleEdit}/>
+                        )}
+                    />
+
+                )
+            }
+
 
         </View>
 

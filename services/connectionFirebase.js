@@ -5,9 +5,10 @@ import 'firebase/compat/auth';
 //trabalha com o banco de dados criado no firebase
 import 'firebase/compat/database';
 
-let firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAaQv_gbbyhivQV_O00IQzbBRLt6DygB2s",
   authDomain: "applojacoffe.firebaseapp.com",
+  databaseURL: "https://applojacoffe-default-rtdb.firebaseio.com",
   projectId: "applojacoffe",
   storageBucket: "applojacoffe.appspot.com",
   messagingSenderId: "626634941509",

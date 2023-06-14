@@ -7,8 +7,6 @@ import Menu from './components/Menu/menutabs';
 export default function App() {
   const [user, setUser] = useState(null);
 
-
-
   //verifica se existe um usuário logado, se não houver chama a
   //tela de login
   if (!user) {

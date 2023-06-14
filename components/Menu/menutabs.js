@@ -4,92 +4,76 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Gerenciamentoprodutos from '../Produtos/gerenciamentoprodutos';
+import Perfil from '../perfil/perfil';
 
 
 function HomeScreen() {
     return (
         <View style={styles.container}>
-            <Text></Text>
+            <Text>minha Home</Text>
         </View>
     );
 }
-
-
 
 function ListScreen() {
-    return (
-        <View style={styles.container}>
-            <Text></Text>
-        </View>
-    );
+    return <Perfil />;
 }
-
-
 
 function ProdutoScreen() {
     return <Gerenciamentoprodutos />
 }
 
-
-
 function NotificationsScreen() {
     return (
         <View style={styles.container}>
-            <Text></Text>
+            <Text>Notification</Text>
         </View>
     );
 }
 
-
-
 const Tab = createBottomTabNavigator();
-
-
 
 export default function App() {
     return (
         <NavigationContainer>
             <Tab.Navigator
                 screenOptions={({ route }) => ({
+                   
+
                     tabBarIcon: ({ color, size }) => {
                         let iconName;
-
-
 
                         switch (route.name) {
                             case 'Home':
                                 iconName = 'home';
                                 break;
-                            case 'Listar':
-                                iconName = 'list';
+                            case 'Perfil':
+                                iconName = 'user-circle';
                                 break;
                             case 'Coffe':
                                 iconName = 'coffee';
                                 break;
-                            case 'Ler API':
+                            case 'LerAPI':
                                 iconName = 'bell';
                                 break;
                             default:
-                                iconName = 'add-circle-outline';
+                                iconName = 'star-of-life';
                                 break;
                         }
-
-
-
                         return <Icon name={iconName} size={size} color={color} />;
                     },
                 })}
-                tabBarOptions={{
-                    activeTintColor: '#4682B4',
-                    inactiveTintColor: '#777',
-                    showLabel: true,
-                }}
+                
+                // tabBarOptions={{
+                //     activeTintColor: '#4682B4',
+                //     inactiveTintColor: '#777',
+                //     showLabel: true,
+                // }}
             >
                 <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="Listar" component={ListScreen} />
-                <Tab.Screen name="Coffe" component={ProdutoScreen}
-                />
-                <Tab.Screen name="Ler API" component={NotificationsScreen} />
+                <Tab.Screen name="Perfil" component={ListScreen} />
+                <Tab.Screen name="Coffe" component={ProdutoScreen}/>
+                <Tab.Screen name="LerAPI" component={NotificationsScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );

@@ -5,8 +5,8 @@ import firebase from '../../services/connectionFirebase';
 
 export default function Login({ changeStatus }) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('teste@gmail.com');
+  const [password, setPassword] = useState('123456');
   const [type, setType] = useState('login');
 
   //método handleLogin para verificar se é login ou cadastro
@@ -49,7 +49,7 @@ export default function Login({ changeStatus }) {
           value={email}
           onChangeText={(text) => setEmail(text)}
           right={<TextInput.Icon icon="email" />}
-        /> <hr />
+        /> 
 
         <TextInput
           label="Password"
@@ -58,7 +58,7 @@ export default function Login({ changeStatus }) {
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
           right={<TextInput.Icon icon="eye" />}
-        /> <hr />
+        /> 
       </SafeAreaView>
 
 
